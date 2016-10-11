@@ -1,0 +1,2 @@
+echo "127.0.0.1 auth.lemon.sp.fr manager.lemon.sp.fr test1.lemon.sp.fr test2.lemon.sp.fr" | sudo tee -a /etc/hosts
+docker run -p 80:80 -ti -h lemon.sp.fr --add-host lemon.sp.fr:127.0.0.1 tleberre/lemon1 bash
