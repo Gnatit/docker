@@ -1,3 +1,4 @@
+```
 docker build Base/. -t lemon/base  
 
 docker build SP/. -t lemon/sp  
@@ -15,4 +16,4 @@ docker network create outside
 docker run -ti --name idp --add-host reload.lemon.idp.fr:127.0.0.1 -p 81:80 --network outside lemon/idp  
 
 docker network connect outside sp  
-
+```
