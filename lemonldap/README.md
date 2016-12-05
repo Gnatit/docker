@@ -7,13 +7,14 @@ docker build IdP/. -t lemon/idp
 
 docker network create inside  
 
-docker run -ti --network inside  --network-alias tomcat.fr --name tomcat --rm tomcat   
+docker run -d --network inside --network-alias tomcat.fr --name tomcat tomcat   
 
-docker run -ti --name sp --add-host reload.lemon.sp.fr:127.0.0.1 -p 80:80 --network inside lemon/sp  
+docker run -ti --name sp --add-host reload.lemon.sp.fr:127.0.0.1 -p  192.168.99.100:80:80 --network inside lemon/sp  
 
 docker network create outside  
 
-docker run -ti --name idp --add-host reload.lemon.idp.fr:127.0.0.1 -p 81:80 --network outside lemon/idp  
+docker run -ti --name idp --add-host reload.lemon.idp.fr:127.0.0.1 -p 192.168.56.101:80:80 --network outside  --network-alias auth.lemon.idp.fr lemon/idp  
 
-docker network connect outside sp  
+docker network connect outside sp
+
 ```
