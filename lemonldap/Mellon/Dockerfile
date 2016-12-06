@@ -11,7 +11,7 @@ RUN sed -i "s/LogLevel warn/LogLevel debug/g" /etc/apache2/apache2.conf
 
 # Generate Mellon metadata
 WORKDIR /etc/apache2/mellon_conf/
-RUN /etc/apache2/mellon/mellon-create-metadata.sh  http://mellon.sp.fr/sp http://mellon.sp.fr/mellon
+RUN /etc/apache2/mellon/mellon-create-metadata.sh  http://tomcat.mellon.sp.fr/tomcat http://tomcat.mellon.sp.fr/mellon
 
 # Configure mellon
 RUN echo '# This is a server-wide configuration that will add information from the Mellon session to all requests.\n\
@@ -21,10 +21,10 @@ RUN echo '# This is a server-wide configuration that will add information from t
 \n\
     # Configure the SP metadata\n\
     # This should be the files which were created when creating SP metadata.\n\
-    MellonSPPrivateKeyFile /etc/apache2/mellon_conf/http_mellon.sp.fr_sp.key\n\
+    MellonSPPrivateKeyFile /etc/apache2/mellon_conf/http_tomcat.mellon.sp.fr_tomcat.key\n\
 \n\
-    MellonSPCertFile /etc/apache2/mellon_conf/http_mellon.sp.fr_sp.cert\n\
-    MellonSPMetadataFile /etc/apache2/mellon_conf/http_mellon.sp.fr_sp.xml\n\
+    MellonSPCertFile /etc/apache2/mellon_conf/http_tomcat.mellon.sp.fr_tomcat.cert\n\
+    MellonSPMetadataFile /etc/apache2/mellon_conf/http_tomcat.mellon.sp.fr_tomcat.xml\n\
 \n\
     # IdP metadata. This should be the metadata file you got from the IdP.\n\
     MellonIdPMetadataFile /etc/apache2/mellon_conf/idp-metadata.xml\n\
@@ -39,13 +39,14 @@ RUN echo '# This is a server-wide configuration that will add information from t
 RUN echo '<VirtualHost *:80>\n\
 	ServerName tomcat.mellon.sp.fr\n\
 	\n\
-	<Location />\n\
-		MellonEnable "auth"	\n\
-	</Location>\n\
-\n\
 	ProxyPass / http://tomcat.fr:8080/\n\
 	ProxyPassReverse / http://tomcat.fr:8080/\n\
 	ProxyPassReverseCookieDomain tomcat.fr tomcat.mellon.sp.fr\n\
+	
+	<Location />\n\
+		MellonEnable "auth"	\n\
+	</Location>\n\
+	
 	ErrorLog /var/log/apache2/proxysite_error.log\n\
 	CustomLog /var/log/apache2/proxysite_access.log combined\n\
 </VirtualHost>'\
