@@ -27,6 +27,10 @@ docker network connect outside sp
   
 docker run -d --name idp --add-host reload.lemon.idp.fr:127.0.0.1 -p 192.168.56.101:80:80 --network outside --network-alias auth.lemon.idp.fr lemon/idp  
 
+docker pull isim/wso2is
+
+docker run -d --name wso2is -p 192.168.56.101:9443:9443 -p 192.168.56.101:9763:9763 -p 192.168.56.101:8000:8000 -p 192.168.56.101:10500:10500  --network outside --network-alias wso2is.idp.fr isim/wso2is
+
 ```
 
 # Configuration

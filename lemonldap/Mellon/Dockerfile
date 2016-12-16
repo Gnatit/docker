@@ -9,6 +9,12 @@ MAINTAINER Tanguy Le Berre
 # Set to debug
 RUN sed -i "s/LogLevel warn/LogLevel debug/g" /etc/apache2/apache2.conf
 
+# Update system
+RUN apt-get -y update && apt-get -y dist-upgrade
+
+#  Additionnal packages
+RUN apt-get -y update && apt-get -y install vim ack-grep
+
 # Generate Mellon metadata
 WORKDIR /etc/apache2/mellon_conf/
 RUN /etc/apache2/mellon/mellon-create-metadata.sh  http://tomcat.mellon.sp.fr/tomcat http://tomcat.mellon.sp.fr/mellon
