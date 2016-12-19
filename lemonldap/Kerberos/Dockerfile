@@ -8,7 +8,7 @@ MAINTAINER Tanguy Le Berre
 RUN apt-get -y update && apt-get -y dist-upgrade
 
 # Install Apache 2 and packages
-RUN apt-get -y update && apt-get -y install apache2 libapache2-mod-perl2 vim ack-grep libapache2-mod-auth-kerb
+RUN apt-get -y update && DEBIAN_FRONTEND=noninteractive apt-get -y install apache2 libapache2-mod-perl2 vim ack-grep libapache2-mod-auth-kerb
 
 # Enable mods
 RUN a2enmod ssl auth_kerb
