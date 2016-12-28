@@ -14,7 +14,6 @@ RUN apt-get update && apt-get -y install \
 	vim \
 	ack-grep
 	
-
 # Activate mod_proxy
 RUN a2enmod \
 	rewrite \

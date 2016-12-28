@@ -32,6 +32,11 @@ docker build WSO2IS/. -t wso2is
 docker run -d --name wso2is -p 192.168.56.101:9443:9443 -p 192.168.56.101:9763:9763 -p 192.168.56.101:8000:8000 -p 192.168.56.101:10500:10500  --network outside --network-alias wso2is.idp.fr wso2is
 
 docker build Kerberos/. -t kerberos 
+
+docker build . -t lemon/postgres
+
+docker run --name postgres -e POSTGRES_PASSWORD=postgres -d lemon/postgres
+
 ```
 
 # Configuration
@@ -48,4 +53,8 @@ docker build Kerberos/. -t kerberos
   * Déclaration comme fournisseur d'identité
   * Ajout du SP comme fournisseur de service avec ses metadata
   
-
+  
+# Postgres
+```
+dbi:Pg:dbname=postgres;host=postgres
+```
